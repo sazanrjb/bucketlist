@@ -1,29 +1,51 @@
 <template>
-  <div id="app">
-    <div class="max-w-sm rounded overflow-hidden shadow-lg">
-      <img class="w-full" src="/img/card-top.jpg" alt="Sunset in the mountains">
-    </div>
+  <div class="container font-sans">
+    <card>
+      <bucket-list-form></bucket-list-form>
+      <div class="mt-5 border-b-7 border-t-0 border-dotted border-gray-300"></div>
+      <div class="bg-gray-200 px-2 pr-8 pt-1 pb-1 mb-4">
+        <p class="text-center underline">AUGUST, 2018</p>
+        <ul class="leading-relaxed list-outside">
+          <li
+            class="list-none"
+            :class="{ 'line-through text-green-700': item.is_succeeded }"
+            v-for="item in bucketLists"
+            :key="item._id"
+          >
+            <input type="checkbox" value="travel">
+            {{ item.title }}
+          </li>
+        </ul>
+      </div>
+    </card>
   </div>
 </template>
 
 <script>
-import HelloWorld from "./components/HelloWorld.vue";
+import Card from "./components/Card.vue";
+import BucketListForm from "./components/BucketListForm.vue";
 
 export default {
-  name: "app",
+  name: "App",
   components: {
-    HelloWorld
+    Card,
+    BucketListForm,
+  },
+  data() {
+    return {
+      bucketLists: [
+        {
+          _id: 121,
+          title: "Travel",
+          is_succeeded: false
+        },
+        {
+          _id: 122,
+          title: "Learn coding",
+          is_succeeded: true
+        }
+      ]
+    };
   }
 };
 </script>
-
-<style>
-#app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
