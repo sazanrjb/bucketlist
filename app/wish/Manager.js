@@ -19,6 +19,10 @@ class Manager {
 
         return wish;
     }
+
+    delete(id) {
+        return Wish.findOneAndRemove({ _id: id });
+    }
 }
 
 module.exports = new Manager();
