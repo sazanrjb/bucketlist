@@ -13,7 +13,7 @@
             :key="item._id"
           >
             <span class="flex-1">
-              <input type="checkbox" value="travel">
+              <input :checked="item.is_succeeded" type="checkbox" value="travel" @change="toggleSuccess(item)">
               {{ item.title }}
             </span>
             <span>
@@ -32,7 +32,7 @@
 <script>
 import Card from "./components/Card.vue";
 import BucketListForm from "./components/BucketListForm.vue";
-import { getWishes, deleteWish } from "./api/calls";
+import { getWishes, deleteWish, putWish } from "./api/calls";
 
 export default {
   name: "App",
@@ -42,7 +42,7 @@ export default {
   },
   data() {
     return {
-      bucketLists: []
+      bucketLists: [],
     };
   },
   created() {
@@ -65,7 +65,15 @@ export default {
         this.bucketLists = this.bucketLists.filter(item => item._id !== data._id);
       })
       .catch((error) => console.log(error));
-    }
+    },
+    toggleSuccess(wish) {
+      putWish(wish._id, { is_succeeded: !wish.is_succeeded })
+      .then(({ data }) => {
+        const index = this.bucketLists.findIndex(item => item._id === data._id);
+        this.bucketLists.splice(index, 1, data);
+      })
+      .catch((error) => console.log(error));
+    },
   }
 };
 </script>

@@ -12,3 +12,7 @@ export function postWish(payload = {}) {
 export function deleteWish(wishId) {
     return axios.delete(`${API.WISHES}/${wishId}`);
 }
+
+export function putWish(wishId, payload = {}) {
+    return axios.put(`${API.WISHES}/${wishId}`, payload);
+}

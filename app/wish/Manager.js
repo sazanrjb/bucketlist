@@ -23,6 +23,10 @@ class Manager {
     delete(id) {
         return Wish.findOneAndRemove({ _id: id });
     }
+
+    update(id, payload) {
+        return Wish.findOneAndUpdate({ _id: id }, { $set: payload }, { new: true });
+    }
 }
 
 module.exports = new Manager();
